@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Form, Button, Card, Container, Spinner, Alert } from 'react-bootstrap';
 import { updateProduct, fetchProducts } from '../redux/productsSlice';
 
 const EditProduct = () => {
@@ -9,7 +10,7 @@ const EditProduct = () => {
   const navigate = useNavigate();
 
   const product = useSelector((state) =>
-    state.products.products.find((item) => item.id === (id))
+    state.products.products.find((item) => item.id === id)
   );
 
   useEffect(() => {
@@ -20,12 +21,14 @@ const EditProduct = () => {
 
   if (!product) {
     return (
-      <div className="text-center mt-5">
-        <h3>Product Not Found</h3>
-        <button className="btn btn-secondary mt-3" onClick={() => navigate('/products')}>
+      <Container className="d-flex flex-column align-items-center mt-5">
+        <Alert variant="danger" className="text-center">
+          <h3>Product Not Found</h3>
+        </Alert>
+        <Button variant="secondary" className="mt-3" onClick={() => navigate('/products')}>
           Back to Products
-        </button>
-      </div>
+        </Button>
+      </Container>
     );
   }
 
@@ -39,32 +42,36 @@ const EditProduct = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="card p-4 shadow w-50 mx-auto">
-      <h2 className="text-center mb-4">Edit Product</h2>
-      <div className="mb-3">
-        <label className="form-label">Product Name</label>
-        <input
-          type="text"
-          className="form-control"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="mb-3">
-        <label className="form-label">Product Price</label>
-        <input
-          type="number"
-          className="form-control"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-      </div>
-      <button type="submit" className="btn btn-primary w-100">
-        Update Product
-      </button>
-    </form>
+    <Container className="mt-5">
+      <Card className="shadow mx-auto" style={{ maxWidth: '500px' }}>
+        <Card.Body>
+          <h2 className="text-center mb-4">Edit Product</h2>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label>Product Name</Form.Label>
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Product Price</Form.Label>
+              <Form.Control
+                type="number"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Button type="submit" variant="primary" className="w-100">
+              Update Product
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 
