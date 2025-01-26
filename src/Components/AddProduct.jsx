@@ -5,7 +5,7 @@ import { Form, Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 const AddProduct = () => {
   const [name, setName] = useState("");
-  const [price, setAge] = useState("");
+  const [salary, setSalary] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const handleSubmit = (e) => {
@@ -13,7 +13,7 @@ const AddProduct = () => {
     dispatch(addProduct({ name, price }));
     navigate("/products")
     setName("");
-    setAge("");
+    setSalary("");
 
   };
 
@@ -39,7 +39,7 @@ const AddProduct = () => {
               <Form.Control
                 type="number"
                 value={price}
-                onChange={(e) => setAge(e.target.value)}
+                onChange={(e) => setSalary(e.target.value)}
                 placeholder="Enter age"
                 required
               />

@@ -33,7 +33,7 @@ const EditProduct = () => {
   }
 
   const [name, setName] = useState(product.name);
-  const [price, setAge] = useState(product.price);
+  const [salary, setSalary] = useState(product.price);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,7 +61,7 @@ const EditProduct = () => {
               <Form.Control
                 type="number"
                 value={price}
-                onChange={(e) => setAge(e.target.value)}
+                onChange={(e) => setSalary(e.target.value)}
                 required
               />
             </Form.Group>
