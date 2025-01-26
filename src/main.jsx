@@ -1,19 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/Store';
-import ProductList from './Components/ProductList';
-import AddProduct from './Components/AddProduct';
+import App from './App';
 
-// Main App Component
-const App = () => (
+ReactDOM.render(
   <Provider store={store}>
-    <AddProduct />
-    <ProductList />
-  </Provider>
+    <App />
+  </Provider>,
+  document.getElementById('root')
 );
 
-// Mount the App component using React 18's new API
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <App />
-);
