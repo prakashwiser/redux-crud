@@ -11,10 +11,8 @@ const ProductList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchProducts());
-    }
-  }, [dispatch, status]);
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   const handleDelete = (id) => {
     dispatch(deleteProduct(id));
@@ -27,15 +25,14 @@ const ProductList = () => {
   return (
     <div>
       <h1>Product List</h1>
-      {status === 'loading' && (
-        <Spinner animation="border" variant="primary" />
-      )}
-      {status === 'failed' && (
-        <Alert variant="danger">Error loading products</Alert>
-      )}
+      {status === 'loading' && <Spinner animation="border" variant="primary" />}
+      {status === 'failed' && <Alert variant="danger">Error loading products</Alert>}
       <ListGroup>
         {products.map((product) => (
-          <ListGroup.Item key={product.id} className="d-flex justify-content-between align-items-center">
+          <ListGroup.Item
+            key={product.id}
+            className="d-flex justify-content-between align-items-center"
+          >
             <span>
               {product.name} - ${product.price}
             </span>
@@ -50,10 +47,12 @@ const ProductList = () => {
               </Button>
               <Button
                 variant="warning"
-                size='sm'
+                size="sm"
                 className="me-2"
-                onClick={() => handleUpdate(product.id)}>Update</Button>
-
+                onClick={() => handleUpdate(product.id)}
+              >
+                Update
+              </Button>
             </div>
           </ListGroup.Item>
         ))}
