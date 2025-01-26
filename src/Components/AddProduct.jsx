@@ -25,22 +25,22 @@ const AddProduct = () => {
           <Card.Title className="text-center mb-4">Add Product</Card.Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="productName" className="mb-3">
-              <Form.Label>Product Name</Form.Label>
+              <Form.Label> Name</Form.Label>
               <Form.Control
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Enter product name"
+                placeholder="Enter  name"
                 required
               />
             </Form.Group>
             <Form.Group controlId="productPrice" className="mb-4">
-              <Form.Label>Product Price</Form.Label>
+              <Form.Label>Age</Form.Label>
               <Form.Control
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                placeholder="Enter product price"
+                placeholder="Enter age"
                 required
               />
             </Form.Group>
