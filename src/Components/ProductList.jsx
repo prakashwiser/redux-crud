@@ -51,7 +51,7 @@ const ProductList = () => {
                 <Card.Body>
                   <Card.Title className="d-flex justify-content-between align-items-center" style={{ textTransform: "capitalize" }}>
                     <span>{product.name}</span>
-                    <span className="text-success fw-bold">${product.price}</span>
+                    <span className="text-success fw-bold">${product.salary}</span>
                   </Card.Title>
                   <Card.Text className="text-muted">
                     A detailed description or category can go here.
