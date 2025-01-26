@@ -8,22 +8,25 @@ const EditProduct = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Select the product by id from the store
   const product = useSelector((state) =>
-    Array.isArray(state.products.products)
-      ? state.products.products.find((item) => item.id === parseInt(id))
-      : null
+    state.products.products.find((item) => item.id === (id))
   );
 
-  // Fetch products if not loaded
   useEffect(() => {
-    if (!Array.isArray(state.products.products) || state.products.products.length === 0) {
+    if (!product) {
       dispatch(fetchProducts());
     }
-  }, [dispatch]);
+  }, [dispatch, product]);
 
   if (!product) {
-    return <div>Product not found</div>;
+    return (
+      <div className="text-center mt-5">
+        <h3>Product Not Found</h3>
+        <button className="btn btn-secondary mt-3" onClick={() => navigate('/products')}>
+          Back to Products
+        </button>
+      </div>
+    );
   }
 
   const [name, setName] = useState(product.name);
@@ -31,14 +34,7 @@ const EditProduct = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Logging before dispatching
-    console.log('Updating product:', { id: product.id, name, price });
-
-    // Dispatch update action
     dispatch(updateProduct({ id: product.id, name, price }));
-
-    // Navigate back to products page
     navigate('/products');
   };
 
