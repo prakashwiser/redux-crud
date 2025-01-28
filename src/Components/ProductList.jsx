@@ -43,7 +43,7 @@ const ProductList = () => {
           Error loading products
         </Alert>
       )}
-
+ 
       <Container>
         <Row className="g-3 justify-content-center">
           {[...products].reverse().map((product) => (
@@ -55,7 +55,7 @@ const ProductList = () => {
                     <span className="text-success fw-bold">${product.salary}</span>
                   </Card.Title>
                   <Card.Text className="text-muted">
-                    A detailed description or category can go here.
+                    A Per Month 
                   </Card.Text>
                   <div className="d-flex justify-content-end">
                     <Button
