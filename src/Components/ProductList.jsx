@@ -11,6 +11,7 @@ const ProductList = () => {
   const status = useSelector((state) => state.products.status);
   const navigate = useNavigate();
 
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -45,7 +46,7 @@ const ProductList = () => {
 
       <Container>
         <Row className="g-3 justify-content-center">
-          {products.map((product) => (
+          {[...products].reverse().map((product) => (
             <Col xs={12} md={6} lg={4} key={product.id}>
               <Card className="shadow-sm h-100">
                 <Card.Body>

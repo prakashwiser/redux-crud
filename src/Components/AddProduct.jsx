@@ -19,10 +19,10 @@ const AddProduct = () => {
 
   return (
     <Container className="d-flex justify-content-center align-items-center min-vh-100 flex-column">
-      <h3 className="text-center mb-4">FrontEnd Developer Salary Listing</h3>
+      <h3 className="text-center mb-4">FrontEnd Developer </h3>
       <Card className="shadow-lg p-4" style={{ maxWidth: "500px", width: "100%" }}>
         <Card.Body>
-          <Card.Title className="text-center mb-4">Add Product</Card.Title>
+          <Card.Title className="text-center mb-4">Add Details</Card.Title>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="productName" className="mb-3">
               <Form.Label> Name</Form.Label>
