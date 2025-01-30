@@ -27,7 +27,7 @@ const ProductList = () => {
   return (
     <div>
       <div className="d-flex justify-content-center gap-3 my-5 align-items-center">
-        <h1 className="text-center">Product List</h1>
+        <h3 className="text-center">Developer Details List</h3>
         <Button variant="primary" size="sm" onClick={() => navigate("/")}>
           New
         </Button>
@@ -43,7 +43,7 @@ const ProductList = () => {
           Error loading products
         </Alert>
       )}
- 
+
       <Container>
         <Row className="g-3 justify-content-center">
           {[...products].reverse().map((product) => (
@@ -52,10 +52,18 @@ const ProductList = () => {
                 <Card.Body>
                   <Card.Title className="d-flex justify-content-between align-items-center" style={{ textTransform: "capitalize" }}>
                     <span>{product.name}</span>
-                    <span className="text-success fw-bold">${product.salary}</span>
+                    <span className="text-success fw-bold">{product.roll}</span>
                   </Card.Title>
                   <Card.Text className="text-muted">
-                    A Per Month 
+                    I am {product.roll}
+                    {product.roll == "Front-end Developer" ?
+                      <p>
+                        I have 2 years React Js and Next Js
+                      </p>
+                      : <p>
+                        I have 2 years {product.roll}
+                      </p>
+                    }
                   </Card.Text>
                   <div className="d-flex justify-content-end">
                     <Button

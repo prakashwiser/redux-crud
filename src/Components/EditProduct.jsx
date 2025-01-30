@@ -33,11 +33,11 @@ const EditProduct = () => {
   }
 
   const [name, setName] = useState(product.name);
-  const [salary, setSalary] = useState(product.salary);
+  const [roll, setRoll] = useState(product.roll);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateProduct({ id: product.id, name, salary }));
+    dispatch(updateProduct({ id: product.id, name, roll }));
     navigate('/products');
   };
 
@@ -60,8 +60,8 @@ const EditProduct = () => {
               <Form.Label>Developer Salary</Form.Label>
               <Form.Control
                 type="number"
-                value={salary}
-                onChange={(e) => setSalary(e.target.value)}
+                value={roll}
+                onChange={(e) => setRoll(e.target.value)}
                 required
               />
             </Form.Group>
