@@ -1,58 +1,94 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/productsSlice";
-import { Form, Button, Card, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
+import { CloudUpload } from "react-bootstrap-icons";
+
 const AddProduct = () => {
   const [name, setName] = useState("");
-  const [roll, setRoll] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [listingType, setListingType] = useState("Kitchen");
+  const [imageName, setImageName] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
+
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageName(file.name);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addProduct({ name, roll }));
-    navigate("/products")
-    setName("");
-    setRoll("");
+    dispatch(addProduct({ name, price, description, listingType, image: imageName }));
+    navigate("/products");
 
+    // Reset form fields
+    setName("");
+    setPrice("");
+    setDescription("");
+    setListingType("Kitchen");
+    setImageName("");
+    setImagePreview("");
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center min-vh-100 flex-column">
-      <h3 className="text-center mb-4">Developer Roll</h3>
-      <Card className="shadow-lg p-4" style={{ maxWidth: "500px", width: "100%" }}>
-        <Card.Body>
-          <Card.Title className="text-center mb-4">Add Details</Card.Title>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="productName" className="mb-3">
-              <Form.Label> Name</Form.Label>
-              <Form.Control
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter  name"
-                required
-              />
-            </Form.Group>
-            <Form.Group controlId="productPrice" className="mb-4">
-              <Form.Label>Job Role</Form.Label>
-              <Form.Select
-                value={roll}
-                onChange={(e) => setRoll(e.target.value)}
-                required
-              >
-                <option value="">Select Job Role</option>
-                <option value="Front-end Developer">Front-end Developer</option>
-                <option value="Back-end Developer">Back-end Developer</option>
-                <option value="Full Stack Developer">Full Stack Developer</option>
-                <option value="MERN Developer">MERN Developer</option>
-              </Form.Select>
-            </Form.Group>
-            <Button variant="primary" type="submit" className="w-100">
-              Add Product
-            </Button>
-          </Form>
-        </Card.Body>
+    <Container className="mt-5">
+      <Card className="p-5 shadow">
+        <h2 className="text-center mb-4 text-primary">Add New Product</h2>
+        <Form onSubmit={handleSubmit}>
+          <Row>
+            <Col md={4} className="d-flex flex-column align-items-center ">
+              <Form.Group controlId="image" className="mb-3 w-100">
+                <Form.Label className="fw-bold">Upload Image</Form.Label>
+                <div className="d-flex align-items-center gap-2 border p-2 rounded">
+                  <CloudUpload size={24} />
+                  <Form.Control type="file" accept="image/*" onChange={handleImageChange} required />
+                </div>
+              </Form.Group>
+
+              {imagePreview && (
+                <img src={imagePreview} alt="Preview" className="img-fluid rounded mt-2" style={{ maxWidth: "200px" }} />
+              )}
+            </Col>
+            <Col md={8}>
+              <Form.Group controlId="name" className="mb-3">
+                <Form.Label className="fw-bold">Product Name</Form.Label>
+                <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+              </Form.Group>
+
+              <Form.Group controlId="price" className="mb-3">
+                <Form.Label className="fw-bold">Price</Form.Label>
+                <Form.Control type="text" value={price} onChange={(e) => setPrice(e.target.value)} required />
+              </Form.Group>
+
+              <Form.Group controlId="description" className="mb-3">
+                <Form.Label className="fw-bold">Description</Form.Label>
+                <Form.Control as="textarea" rows={4} value={description} onChange={(e) => setDescription(e.target.value)} required />
+              </Form.Group>
+
+              <Form.Group controlId="category" className="mb-3">
+                <Form.Label className="fw-bold">Category</Form.Label>
+                <Form.Select value={listingType} onChange={(e) => setListingType(e.target.value)} required>
+                  <option value="Kitchen">Kitchen</option>
+                  <option value="Living Room">Living Room</option>
+                  <option value="Bedroom">Bedroom</option>
+                  <option value="Kids Room">Kids Room</option>
+                  <option value="Chair">Chair</option>
+                  <option value="Others">Others</option>
+                </Form.Select>
+              </Form.Group>
+
+              <Button type="submit" variant="primary" className="w-100">Add Product</Button>
+            </Col>
+          </Row>
+        </Form>
       </Card>
     </Container>
   );

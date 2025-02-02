@@ -11,7 +11,6 @@ const ProductList = () => {
   const status = useSelector((state) => state.products.status);
   const navigate = useNavigate();
 
-
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -25,14 +24,15 @@ const ProductList = () => {
   };
 
   return (
-    <div>
-      <div className="d-flex justify-content-center gap-3 my-5 align-items-center">
-        <h3 className="text-center">Developer Details List</h3>
-        <Button variant="primary" size="sm" onClick={() => navigate("/")}>
-          New
+    <Container className="mt-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3 className="text-primary">🛒 Products</h3>
+        <Button variant="success" onClick={() => navigate("/")}>
+          ➕ Add New Product
         </Button>
       </div>
 
+      {/* Loading and Error Handling */}
       {status === "loading" && (
         <div className="text-center my-4">
           <Spinner animation="border" variant="primary" />
@@ -40,56 +40,54 @@ const ProductList = () => {
       )}
       {status === "failed" && (
         <Alert variant="danger" className="text-center">
-          Error loading products
+          ❌ Error loading products
         </Alert>
       )}
 
-      <Container>
-        <Row className="g-3 justify-content-center">
-          {[...products].reverse().map((product) => (
-            <Col xs={12} md={6} lg={4} key={product.id}>
-              <Card className="shadow-sm h-100">
-                <Card.Body>
-                  <Card.Title className="d-flex justify-content-between align-items-center" style={{ textTransform: "capitalize" }}>
-                    <span>{product.name}</span>
-                    <span className="text-success fw-bold">{product.roll}</span>
-                  </Card.Title>
-                  <Card.Text className="text-muted">
-                    I am {product.roll}
-                    {product.roll == "Front-end Developer" ?
-                      <p>
-                        I have 2 years React Js and Next Js
-                      </p>
-                      : <p>
-                        I have 2 years {product.roll}
-                      </p>
-                    }
-                  </Card.Text>
-                  <div className="d-flex justify-content-end">
-                    <Button
-                      variant="warning"
-                      size="sm"
-                      className="me-2 d-flex align-items-center gap-1 text-white"
-                      onClick={() => handleUpdate(product.id)}
-                    >
-                      <PencilSquare /> Update
-                    </Button>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      className="d-flex align-items-center gap-1"
-                      onClick={() => handleDelete(product.id)}
-                    >
-                      <Trash /> Delete
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </Container>
-    </div>
+      <Row className="g-4">
+        {[...products].reverse().map((product) => (
+          <Col xs={12} sm={6} md={4} lg={3} key={product.id}>
+            <Card className="shadow-sm border-0 rounded-3">
+              <div className="d-flex justify-content-center p-3">
+                <img
+                  src={`/images/${product.image}`} 
+                  alt={product.name}
+                  className="img-fluid rounded"
+                  style={{ maxHeight: "180px", objectFit: "cover" }}
+                />
+              </div>
+
+              <Card.Body className="d-flex flex-column">
+                <h5 className="fw-bold text-dark text-center">{product.name}</h5>
+
+                <p className="text-muted text-center">{product.description}</p>
+
+                <h4 className="text-success text-center">₹{product.price}</h4>
+
+                <div className="mt-auto d-flex justify-content-between">
+                  <Button
+                    variant="warning"
+                    size="sm"
+                    className="text-white d-flex align-items-center gap-1 w-50"
+                    onClick={() => handleUpdate(product.id)}
+                  >
+                    <PencilSquare /> Edit
+                  </Button>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    className="d-flex align-items-center gap-1 w-50"
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    <Trash /> Delete
+                  </Button>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 };
 
