@@ -16,7 +16,8 @@ const EditProduct = () => {
 
   useEffect(() => {
     if (!product) {
-      dispatch(fetchProducts()).finally(() => setLoading(false));
+      dispatch(fetchProducts())
+      .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
@@ -41,7 +42,7 @@ const EditProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateProduct({ id: product.id, name, price, description, category, imageName }));
-    navigate('/products');
+    navigate('/');
   };
 
   if (loading) {

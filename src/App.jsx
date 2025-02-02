@@ -8,8 +8,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/products" element={<ProductList />} />
-        <Route path="/" element={<AddProduct />} />
+        <Route path="/" element={<ProductList />} />
+        <Route path="/addproduct" element={<AddProduct />} />
         <Route path="/edit/:id" element={<EditProduct />} />
       </Routes>
     </Router>

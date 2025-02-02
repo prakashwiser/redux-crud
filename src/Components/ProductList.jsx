@@ -6,6 +6,7 @@ import { Button, Card, Spinner, Alert, Container, Row, Col } from "react-bootstr
 import { PencilSquare, Trash } from "react-bootstrap-icons";
 
 const ProductList = () => {
+  const Giturl = "https://raw.githubusercontent.com/prakashwiser/redux-crud/refs/heads/main/src/assets/";
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   const status = useSelector((state) => state.products.status);
@@ -26,13 +27,12 @@ const ProductList = () => {
   return (
     <Container className="mt-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 className="text-primary">🛒 Products</h3>
-        <Button variant="success" onClick={() => navigate("/")}>
+        <h3 className="text-primary fw-bold">🛒 Products</h3>
+        <Button variant="success" className="px-3 fw-semibold" onClick={() => navigate("/addproduct")}>
           ➕ Add New Product
         </Button>
       </div>
 
-      {/* Loading and Error Handling */}
       {status === "loading" && (
         <div className="text-center my-4">
           <Spinner animation="border" variant="primary" />
@@ -47,28 +47,27 @@ const ProductList = () => {
       <Row className="g-4">
         {[...products].reverse().map((product) => (
           <Col xs={12} sm={6} md={4} lg={3} key={product.id}>
-            <Card className="shadow-sm border-0 rounded-3">
-              <div className="d-flex justify-content-center p-3">
+            <Card className="shadow-lg border-0 rounded-4 overflow-hidden transition-card">
+              <div className="d-flex justify-content-center p-3 bg-light">
                 <img
-                  src={`/images/${product.image}`} 
+                  src={`${Giturl + product.image}`}
                   alt={product.name}
                   className="img-fluid rounded"
-                  style={{ maxHeight: "180px", objectFit: "cover" }}
+                  style={{ minHeight: "320px" }}
                 />
               </div>
 
-              <Card.Body className="d-flex flex-column">
-                <h5 className="fw-bold text-dark text-center">{product.name}</h5>
+              <Card.Body className="d-flex flex-column text-center">
+                <div className="d-flex justify-content-between">
+                  <h5 className="fw-bold text-dark text-capitalize">{product.name}</h5>
+                  <h4 className="text-success fw-bold">₹{product.price}</h4>
 
-                <p className="text-muted text-center">{product.description}</p>
-
-                <h4 className="text-success text-center">₹{product.price}</h4>
-
-                <div className="mt-auto d-flex justify-content-between">
+                </div>
+                <div className="mt-auto d-flex gap-2">
                   <Button
                     variant="warning"
                     size="sm"
-                    className="text-white d-flex align-items-center gap-1 w-50"
+                    className="text-white fw-semibold flex-grow-1 d-flex align-items-center gap-1"
                     onClick={() => handleUpdate(product.id)}
                   >
                     <PencilSquare /> Edit
@@ -76,7 +75,7 @@ const ProductList = () => {
                   <Button
                     variant="danger"
                     size="sm"
-                    className="d-flex align-items-center gap-1 w-50"
+                    className="fw-semibold flex-grow-1 d-flex align-items-center gap-1"
                     onClick={() => handleDelete(product.id)}
                   >
                     <Trash /> Delete
@@ -87,6 +86,17 @@ const ProductList = () => {
           </Col>
         ))}
       </Row>
+
+      <style>
+        {`
+          .transition-card {
+            transition: transform 0.3s ease-in-out;
+          }
+          .transition-card:hover {
+            transform: scale(1.05);
+          }
+        `}
+      </style>
     </Container>
   );
 };

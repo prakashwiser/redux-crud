@@ -27,7 +27,7 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addProduct({ name, price, description, listingType, image: imageName }));
-    navigate("/products");
+    navigate("/");
 
     // Reset form fields
     setName("");
